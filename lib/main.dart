@@ -10,11 +10,12 @@ import 'package:provider/provider.dart';
 
 import 'bookcases.dart';
 import 'goals.dart';
+import 'home.dart';
 import 'metrics.dart';
 import 'book_search.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         ),
-        home: MyHomePage(),
+        home: const MyHomePage(),
       ),
     );
   }
@@ -43,6 +44,11 @@ class MyAppState extends ChangeNotifier {
 
   int get currentIndex => _currentIndex;
 
+   // Set the default value of currentIndex to 0
+  MyAppState() {
+    _currentIndex = 0;
+  }
+
   void setCurrentIndex(int index) {
     _currentIndex = index;
     notifyListeners();
@@ -50,15 +56,18 @@ class MyAppState extends ChangeNotifier {
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>(); //watches appstate
 
     final List<Widget> pages = [
-      BooksPage(),
-      GoalPage(),
-      MetricsPage(),
-      SearchPage(),
+      const HomePage(),
+      const BooksPage(),
+      const GoalPage(),
+      const MetricsPage(),
+      const SearchPage(),
     ];
 
     int currentIndex = appState
@@ -69,7 +78,7 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Hello User! Your current Read Streak is 4'),
+            const Text('Hello User! Your current Read Streak is 4'),
             Expanded(child: pages[currentIndex])
           ],
         ),
@@ -77,36 +86,77 @@ class MyHomePage extends StatelessWidget {
       //Bottom Bar Navigation Documentation found here https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Color.fromARGB(255, 249, 140, 97),
-          items: [
+          backgroundColor: const Color.fromARGB(255, 249, 140, 97),
+          items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home_filled),
                 label: 'Home',
-                backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+                backgroundColor: Color.fromARGB(255, 2, 105, 6)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.book),
                 label: 'Books',
-                backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+                backgroundColor: Color.fromARGB(255, 2, 105, 6)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.check_box),
                 label: 'Goals',
-                backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+                backgroundColor: Color.fromARGB(255, 2, 105, 6)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.trending_up_rounded),
                 label: 'Metrics',
-                backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+                backgroundColor: Color.fromARGB(255, 2, 105, 6)),
             BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'Search',
-                backgroundColor: const Color.fromARGB(255, 2, 105, 6))
-          ]),
-      floatingActionButton: CustomFloatingActionButton(),
+                backgroundColor: Color.fromARGB(255, 2, 105, 6))
+          ],
+          currentIndex: currentIndex,
+        onTap: (int index) {
+          context.read<MyAppState>().setCurrentIndex(index);
+
+          // Use Navigator to navigate to the respective page
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => BooksPage()),
+              );
+              break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => GoalPage()),
+              );
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => MetricsPage()),
+              );
+              break;
+            case 4:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()),
+              );
+              break;
+          }
+        },
+      ),   
+      floatingActionButton: const CustomFloatingActionButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 }
 
 class CustomFloatingActionButton extends StatelessWidget {
+  const CustomFloatingActionButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
@@ -115,9 +165,9 @@ class CustomFloatingActionButton extends StatelessWidget {
       },
       backgroundColor: Colors.blue, // Set the background color as you desire
       elevation: 4.0, // Add elevation to make the button stand out (optional)
-      shape: CircleBorder(),
+      shape: const CircleBorder(),
       mini: true,
-      child: Icon(Icons.person_2_outlined),
+      child: const Icon(Icons.person_2_outlined),
     );
   }
 }

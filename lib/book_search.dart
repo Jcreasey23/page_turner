@@ -11,40 +11,42 @@ import 'package:flutter/material.dart';
 import 'main.dart';
 
 class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Search Page')),
+      appBar: AppBar(title: const Text('Search Page')),
       body: Center(
           child: ElevatedButton(
         onPressed: () {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => MyHomePage()));
+              .push(MaterialPageRoute(builder: (context) => const MyHomePage()));
         },
-        child: Text('Back to Home'),
+        child: const Text('Back to Home'),
       )),
       bottomNavigationBar:
-          BottomNavigationBar(backgroundColor: const Color.fromARGB(255, 2, 105, 6), items: [
+          BottomNavigationBar(backgroundColor: const Color.fromARGB(255, 2, 105, 6), items: const [
         BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: 'Books',
-            backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+            backgroundColor: Color.fromARGB(255, 2, 105, 6)),
         BottomNavigationBarItem(
             icon: Icon(Icons.check_box),
             label: 'Goals',
-            backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+            backgroundColor: Color.fromARGB(255, 2, 105, 6)),
         BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
             label: 'Home',
-            backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+            backgroundColor: Color.fromARGB(255, 2, 105, 6)),
         BottomNavigationBarItem(
             icon: Icon(Icons.trending_up_rounded),
             label: 'Metrics',
-            backgroundColor: const Color.fromARGB(255, 2, 105, 6)),
+            backgroundColor: Color.fromARGB(255, 2, 105, 6)),
         BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
-            backgroundColor: const Color.fromARGB(255, 2, 105, 6))
+            backgroundColor: Color.fromARGB(255, 2, 105, 6))
       ]),
     );
   }
