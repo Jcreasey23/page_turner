@@ -8,6 +8,7 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'account.dart';
 import 'bookcases.dart';
 import 'goals.dart';
 import 'home.dart';
@@ -63,26 +64,19 @@ class MyHomePage extends StatelessWidget {
     var appState = context.watch<MyAppState>(); //watches appstate
 
     final List<Widget> pages = [
-      const HomePage(),
-      const BooksPage(),
-      const GoalPage(),
-      const MetricsPage(),
-      const SearchPage(),
+      const HomePage(), // Pass the currentIndex to each page
+      const BooksPage(currentIndex: 1),
+      const GoalPage(currentIndex: 2),
+      const MetricsPage(currentIndex: 3),
+      const SearchPage(currentIndex: 4),
     ];
 
-    int currentIndex = appState
-        .currentIndex; // Use a variable to keep track of the selected index
+    int currentIndex = appState.currentIndex; // Use a variable to keep track of the selected index
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Hello User! Your current Read Streak is 4'),
-            Expanded(child: pages[currentIndex])
-          ],
-        ),
-      ),
+      body: currentIndex == 0
+          ? const WelcomeMessage() // Show WelcomeMessage for index 0
+          : pages[currentIndex],
       //Bottom Bar Navigation Documentation found here https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -118,31 +112,31 @@ class MyHomePage extends StatelessWidget {
             case 0:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
               break;
             case 1:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => BooksPage()),
+                MaterialPageRoute(builder: (context) => const BooksPage(currentIndex: 1,)),
               );
               break;
             case 2:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => GoalPage()),
+                MaterialPageRoute(builder: (context) => const GoalPage(currentIndex: 2,)),
               );
               break;
             case 3:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => MetricsPage()),
+                MaterialPageRoute(builder: (context) => const MetricsPage(currentIndex: 3,)),
               );
               break;
             case 4:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => SearchPage()),
+                MaterialPageRoute(builder: (context) => const SearchPage(currentIndex: 4,)),
               );
               break;
           }
@@ -161,7 +155,7 @@ class CustomFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        // Add your functionality here
+        _navigateToAccount(context);
       },
       backgroundColor: Colors.blue, // Set the background color as you desire
       elevation: 4.0, // Add elevation to make the button stand out (optional)
@@ -170,6 +164,24 @@ class CustomFloatingActionButton extends StatelessWidget {
       child: const Icon(Icons.person_2_outlined),
     );
   }
+}
+
+class WelcomeMessage extends StatelessWidget{
+  const WelcomeMessage({super.key});
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(title: const Text('Hello User! Your Read Streak is 5'), centerTitle: true,),
+    );
+  }
+}
+
+void _navigateToAccount(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const AccountPage()),
+  );
 }
 
 class BigCard extends StatelessWidget {

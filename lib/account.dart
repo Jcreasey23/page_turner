@@ -1,30 +1,28 @@
-
-
-
+// Account Page
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'book_search.dart';
+import 'bookcases.dart';
 import 'goals.dart';
 import 'main.dart';
 import 'metrics.dart';
 
-class BooksPage extends StatelessWidget {
-  final int currentIndex;
-  const BooksPage({super.key, required this.currentIndex});
+class AccountPage extends StatelessWidget {
+  const AccountPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Books Page'),
+        title: const Text('Account Page'),
       ),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Books Page Content'),
+            Text('Account Page Content'),
             // ... Your page content ...
           ],
         ),
@@ -32,13 +30,14 @@ class BooksPage extends StatelessWidget {
       bottomNavigationBar: buildBottomNavigationBar(
         // ... Customize the local bottom navigation bar ...
         context,
-        currentIndex,
         // ... Other properties ...
       ),
     );
   }
 
-  Widget buildBottomNavigationBar(BuildContext context, int currentIndex) {
+  
+  
+  Widget buildBottomNavigationBar(BuildContext context,) {
   return BottomNavigationBar(
     type: BottomNavigationBarType.fixed,
     backgroundColor: const Color.fromARGB(255, 249, 140, 97),
@@ -69,7 +68,7 @@ class BooksPage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 2, 105, 6),
       ),
     ],
-    currentIndex: currentIndex,
+    currentIndex: 0,  // Always go back Home
         onTap: (int index) {
           context.read<MyAppState>().setCurrentIndex(index);
 
@@ -108,6 +107,5 @@ class BooksPage extends StatelessWidget {
           }
     },
   );
-}
-
+  }
 }
