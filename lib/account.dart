@@ -18,12 +18,44 @@ class AccountPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Account Page'),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center, // Center the Column horizontally
           children: [
-            Text('Account Page Content'),
-            // ... Your page content ...
+            const SizedBox(height: 20), // Add some space at the top
+            // Circle for Image
+            const CircleAvatar(
+              radius: 50, // Adjust the radius as needed
+            ),
+            const SizedBox(height: 20), // Add space between the circle and text fields
+            // Text Field for Username
+            const Text(
+              'Username',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10), // Add space between username and text fields
+            // Text Fields for First Name, Last Name, and Email
+            const Text(
+              'First Name',
+              style: TextStyle(fontSize: 16),
+            ),
+            const Text(
+              'Last Name',
+              style: TextStyle(fontSize: 16),
+            ),
+            const Text(
+              'Email',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20), // Add space between text fields and edit button
+            // Edit Button
+            ElevatedButton(
+              onPressed: () {
+                // Handle edit button press
+              },
+              child: const Text('Edit'),
+            ),
           ],
         ),
       ),
@@ -36,7 +68,7 @@ class AccountPage extends StatelessWidget {
   }
 
   
-  
+  // Bottom Navigation Bar
   Widget buildBottomNavigationBar(BuildContext context,) {
   return BottomNavigationBar(
     type: BottomNavigationBarType.fixed,
