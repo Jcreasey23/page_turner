@@ -11,6 +11,8 @@ datasource db {
 }
 
 // More Documentation on Prisma found here https://prisma.pub/docs/getting-started.html
+// https://www.prisma.io/docs/concepts/components/prisma-studio
+// Steps 7-10??
 
 // Models will represent tables with specified fields
 // This is a temporary placeholder model
