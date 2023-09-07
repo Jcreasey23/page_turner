@@ -10,7 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// More Documentation on Prisma found here https://prisma.pub/docs/getting-started.html
 
+// Models will represent tables with specified fields
+// This is a temporary placeholder model
 model user_info{
   id Int @id @default(autoincrement())
   name String @db.VarChar(255) @unique
