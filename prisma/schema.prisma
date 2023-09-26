@@ -16,7 +16,56 @@ datasource db {
 
 // Models will represent tables with specified fields
 // This is a temporary placeholder model
-model user_info{
-  id Int @id @default(autoincrement())
-  name String @db.VarChar(255) @unique
+model user {
+  id          Int           @id @default(autoincrement())
+  first_name  String        @unique @db.VarChar(255)
+  last_name   String        @unique @db.VarChar(255)
+  user_email  String        @unique @db.VarChar(255)
+  bookshelf   bookshelf[]
+  read_streak read_streak[]
+  reading_log reading_log[]
+}
+
+model book {
+  book_id     Int           @id @default(autoincrement())
+  title       String        @unique @db.VarChar(255)
+  author      String        @unique @db.VarChar(255)
+  pages       Int           @db.Int
+  genre       String        @unique @db.VarChar(255)
+  description String        @unique @db.VarChar(255)
+  isbn        String        @unique @db.VarChar(255)
+  publishdate DateTime      @db.DateTime()
+  reading_log reading_log[]
+}
+
+model bookshelf {
+  bookshelf_id    Int               @id @default(autoincrement())
+  user            user              @relation(fields: [userId], references: [id])
+  userId          Int
+  bookshelf_books bookshelf_books[]
+}
+
+model bookshelf_books {
+  bookshelfbooks_id Int       @id @default(autoincrement())
+  bookshelf         bookshelf @relation(fields: [bookshelfId], references: [bookshelf_id])
+  bookshelfId       Int
+}
+
+model read_streak {
+  streak_id        Int      @id @default(autoincrement())
+  user             user     @relation(fields: [userId], references: [id])
+  userId           Int
+  streak_start     DateTime @db.Date
+  streak_end       DateTime @db.Date
+  consecutive_days Int
+}
+
+model reading_log {
+  log_id     Int      @id @default(autoincrement())
+  user       user     @relation(fields: [userId], references: [id])
+  userId     Int
+  book       book     @relation(fields: [bookId], references: [book_id])
+  bookId     Int
+  date_read  DateTime @db.Date
+  pages_read Int
 }
