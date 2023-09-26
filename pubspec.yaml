@@ -40,6 +40,7 @@ dependencies:
   card_swiper: ^3.0.1
   json_annotation: ^4.8.1
   orm: ^3.4.4
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

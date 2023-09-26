@@ -2,7 +2,7 @@
 // Project: Page Turner
 // Authored by: Josh Creasey
 // 8/3/2023
-// Last update: 8/4/2023
+// Last update: 9/25/2023
 
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import 'goals.dart';
 import 'home.dart';
 import 'metrics.dart';
 import 'book_search.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,9 +76,32 @@ class MyHomePage extends StatelessWidget {
         .currentIndex; // Use a variable to keep track of the selected index
 
     return Scaffold(
-      body: currentIndex == 0
-          ? const WelcomeMessage() // Show WelcomeMessage for index 0
-          : pages[currentIndex],
+      body: Stack(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Center(
+              child: CarouselSlider(
+                items: const [
+                  Text('Item 1', style: TextStyle(fontSize: 24)),
+                  Text('Item 2', style: TextStyle(fontSize: 24)),
+                  Text('Item 3', style: TextStyle(fontSize: 24)),
+                ],
+                options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.8,
+                  aspectRatio: 16 / 9,
+                ),
+              ),
+            ),
+          ),
+          currentIndex == 0
+              ? const WelcomeMessage()
+              : pages[currentIndex - 1], // Subtract 1 to match index
+        ],
+      ),
       //Bottom Bar Navigation Documentation found here https://api.flutter.dev/flutter/material/BottomNavigationBar-class.html
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
