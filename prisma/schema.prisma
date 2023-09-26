@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "mysql"
+  provider = "dart run orm"
 }
 
 datasource db {
@@ -15,7 +15,7 @@ datasource db {
 // Steps 7-10??
 
 // Models will represent tables with specified fields
-// This is a temporary placeholder model
+// This is a model of the user
 model user {
   id          Int           @id @default(autoincrement())
   first_name  String        @unique @db.VarChar(255)
